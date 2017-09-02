@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'fangkuai'
+            keyPassword 'xiaxiangnan'
+            storeFile file('/Users/vanke/AndroidStudioProjects/FangKuai/fangkuai.jks')
+            storePassword 'xiaxiangnan'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "org.xxnan.blockinger.game"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        /*ndk {
+            abiFilters 'armeabi'//, 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }*/
+        ndk {
+            moduleName "YouMiId"
+//            ldLibs "log", "z", "m"
+//            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+repositories   {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile 'com.android.support:support-v4:25.0.0'
+    compile(name: 'YoumiSdk_v7.4.0_2017-07-18', ext: 'aar')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    testCompile 'junit:junit:4.12'
+    //compile project(':YoumiSdk_v7.4.0_2017-07-18')
+}
